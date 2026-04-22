@@ -1,16 +1,18 @@
 # Execsnoop , Exitsnoop e Threadsnoop.
-Execsnoop, exitsnoop e threadsnoop são ferramentas poderosas do BCC (BPF Compiler Collection) usadas para monitorar e depurar sistemas Linux que utilizam o eBPF (Extended Berkeley Packet Filter). Elas fornecem informações em tempo real sobre o comportamento dos processos com sobrecarga mínima.
+Execsnoop, exitsnoop e threadsnoop são ferramentas poderosas do BCC (BPF Compiler Collection) usadas para monitorar e depurar sistemas Linux que utilizam o eBPF (Extended Berkeley Packet Filter). Elas fornecem informações em tempo real sobre o comportamento dos processos com sobrecarga mínima.  
 
-Reqisitos:
+### Reqisitos:  
 
-Instale o pacote BCC/BPFCC.
+### Instale o pacote BCC/BPFCC.  
+```bash
 sudo apt update
 sudo apt install bpfcc-tools linux-headers-$(uname -r)
+```
+Verificar se instalou. Provavelmente vai mostrar execsnoop, exitsnoop, threadsnoop e outros.    
 
-Verificar se instalou. Provavelmente vai mostrar execsnoop, exitsnoop, threadsnoop e outros.
-
+```bash
 $ ls /usr/share/bcc/tools/ | grep snoop
-
+``
 
 1. execsnoop (Rastrear Execuções de Processos)
 Objetivo: Monitorar e registrar novos processos em tempo real, execve()rastreando a chamada do sistema.
