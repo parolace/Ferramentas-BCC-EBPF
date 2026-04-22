@@ -29,5 +29,7 @@ O execsnoop vai imprimir:
 
 PCOMM            PID    PPID   RET ARGS
 curl             211447 208745   0 /usr/bin/curl http://localhost:8080
+ls               215745 208745   0 /usr/bin/ls --color=auto -l /tmp/
+
 
 
