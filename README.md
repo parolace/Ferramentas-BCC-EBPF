@@ -3,13 +3,27 @@ Execsnoop, exitsnoop e threadsnoop são ferramentas poderosas do BCC (BPF Compil
 
 1. execsnoop (Rastrear Execuções de Processos)
 Objetivo: Monitorar e registrar novos processos em tempo real, execve()rastreando a chamada do sistema.
-Utilização: É altamente adequado para identificar processos efêmeros que não são visíveis em ferramentas de monitoramento típicas, como o top(1)`ls`. Auxilia na depuração de scripts de shell, no monitoramento da inicialização de aplicativos e na identificação do uso excessivo de recursos sh/grep/sed/awk.
+Utilização: É altamente adequado para identificar processos efêmeros que não são visíveis em ferramentas de monitoramento típicas, como o top e ls. Auxilia na depuração de scripts de shell, no monitoramento da inicialização de aplicativos e na identificação do uso excessivo de recursos sh/grep/sed/awk.
 Saída: Exibe o processo pai (PPID), o ID do processo (PID), o valor de retorno e os argumentos com os quais o programa foi iniciado.
+
+Exemplo: $ sudo execsnoop-bpfcc
+PCOMM            PID    PPID   RET ARGS
+curl             211447 208745   0 /usr/bin/curl http://localhost:8080
+ls               215745 208745   0 /usr/bin/ls --color=auto -l /tmp/
+
 
 2. exitsnoop (Rastreamento do Término do Processo)
 Objetivo: Monitorar o término dos processos (finalização do processo).
 Utilização: Ele rastreia a função do kernel sched_process_exit(), o que significa que pode registrar o término de processos por meio de sinais de saída ou fatais. Também pode detectar processos "zumbis"
 Funcionalidades: Funciona para todos os usuários e processos, incluindo aqueles em contêineres.
+
+Exemplo: $ sudo exitsnoop-bpfcc
+3 warnings generated.
+PCOMM            PID    PPID   TID    AGE(s)  EXIT_CODE 
+sleep            226314 208745 226314 2.01    0
+sleep            227607 208745 227607 1.80    signal 2 (INT)  --> CTRL + C
+curl             227660 208745 227660 0.01    0
+
 
 3. threadsnoop (Traceer Threadcreatie)
 Objetivo: Rastrear chamadas para pthread_create(), fornecendo informações sobre o caminho de criação de novas threads.
