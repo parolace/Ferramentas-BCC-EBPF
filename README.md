@@ -31,7 +31,7 @@ Utilização: Ele rastreia a função do kernel sched_process_exit(), o que sign
 Funcionalidades: Funciona para todos os usuários e processos, incluindo aqueles em contêineres.
 
 Exemplo:
-$ sudo exitsnoop-bpfcc ou 
+$ sudo exitsnoop-bpfcc ou $ sudo /usr/share/bcc/tools/exitsnoop
 
 PCOMM            PID    PPID   TID    AGE(s)  EXIT_CODE 
 sleep            226314 208745 226314 2.01    0
@@ -43,7 +43,13 @@ Possíveis nomes do comando: exitsnoop; exitsnoop-bpfcc
 3. threadsnoop (Traceer Threadcreatie)
 Objetivo: Rastrear chamadas para pthread_create(), fornecendo informações sobre o caminho de criação de novas threads.
 Utilização: É usado para caracterização de cargas de trabalho e como ferramenta complementar para execsnoopentender como os aplicativos implantam threads.
-Requisitos: Como o código rastreia pthread_create()a partir do diretório raiz libpthread.so.0, pode ser necessário ajustar os caminhos das bibliotecas no código-fonte de acordo com o seu sistema.
+Requisitos: Como o código rastreia pthread_create() a partir do diretório raiz libpthread.so.0, pode ser necessário ajustar os caminhos das bibliotecas no código-fonte de acordo com o seu sistema.
+
+Exemplo:
+$ sudo threadsnoop-bpfcc ou $ sudo /usr/share/bcc/tools/threadsnoop
+
+
+
 
 Importante: Como essas ferramentas usam eBPF, o acesso root (sudo) geralmente é necessário para executar execsnoop, exitsnoope .threadsnoop
 
