@@ -16,45 +16,51 @@ Verificar se instalou. Provavelmente vai mostrar execsnoop, exitsnoop, threadsno
 $ ls /usr/share/bcc/tools/ | grep snoop
 ```
 
-1. execsnoop (Rastrear Execuções de Processos)  
+### 1. execsnoop (Rastrear Execuções de Processos)  
 Objetivo: Monitorar e registrar novos processos em tempo real, execve()rastreando a chamada do sistema.  
 Utilização: É altamente adequado para identificar processos efêmeros que não são visíveis em ferramentas de monitoramento típicas, como o top e ls. Auxilia na depuração de scripts de shell, no monitoramento da inicialização de aplicativos e na identificação do uso excessivo de recursos sh/grep/sed/awk.  
 Saída: Exibe o processo pai (PPID), o ID do processo (PID), o valor de retorno e os argumentos com os quais o programa foi iniciado.
 
-Exemplo:
+Exemplo:  
+```bash
 $ sudo execsnoop-bpfcc ou $ sudo /usr/share/bcc/tools/exitsnoop
 
 PCOMM            PID    PPID   RET ARGS
 curl             211447 208745   0 /usr/bin/curl http://localhost:8080
 ls               215745 208745   0 /usr/bin/ls --color=auto -l /tmp/
+```
 
-
-2. exitsnoop (Rastreamento do Término do Processo)
+### 2. exitsnoop (Rastreamento do Término do Processo)
 Objetivo: Monitorar o término dos processos (finalização do processo).
 Utilização: Ele rastreia a função do kernel sched_process_exit(), o que significa que pode registrar o término de processos por meio de sinais de saída ou fatais. Também pode detectar processos "zumbis"
 Funcionalidades: Funciona para todos os usuários e processos, incluindo aqueles em contêineres.
 
-Exemplo:
+Exemplo:  
+```bash
 $ sudo exitsnoop-bpfcc ou $ sudo /usr/share/bcc/tools/exitsnoop
 
 PCOMM            PID    PPID   TID    AGE(s)  EXIT_CODE 
 sleep            226314 208745 226314 2.01    0
 sleep            227607 208745 227607 1.80    signal 2 (INT)  --> CTRL + C
 curl             227660 208745 227660 0.01    0
+```
 
-Possíveis nomes do comando: exitsnoop; exitsnoop-bpfcc
+# Possíveis nomes do comando: exitsnoop; exitsnoop-bpfcc
 
-3. threadsnoop (Traceer Threadcreatie)
+### 3. threadsnoop (Traceer Threadcreatie)
 Objetivo: Rastrear chamadas para pthread_create(), fornecendo informações sobre o caminho de criação de novas threads.
 Utilização: É usado para caracterização de cargas de trabalho e como ferramenta complementar para execsnoopentender como os aplicativos implantam threads.
 Requisitos: Como o código rastreia pthread_create() a partir do diretório raiz libpthread.so.0, pode ser necessário ajustar os caminhos das bibliotecas no código-fonte de acordo com o seu sistema.
 
-Exemplo:
+# Exemplo:
+```bash
 $ sudo threadsnoop-bpfcc ou $ sudo /usr/share/bcc/tools/threadsnoop
+```
 
 Programa C simples para teste que cria threads.
-```bash
+
 # Crie teste_threads.c
+```bash
 cat > teste_threads.c << 'EOF'
 #include <pthread.h>
 #include <stdio.h>
@@ -74,15 +80,23 @@ int main() {
     return 0;
 }
 EOF
+```
 
+# Compilando
+```bash
 gcc -o teste_threads teste_threads.c -lpthread
+```
+
+# Executando
+```bash
 ./teste_threads
 ```
+
+# Provavel resultado.
 Você verá 10 linhas de threads sendo criadas pelo seu programa teste_threads.
 
 
 ### Importante: Como essas ferramentas usam eBPF, o acesso root (sudo) geralmente é necessário para executar execsnoop, exitsnoope .threadsnoop
-
 
 
 ### Exemplo prático de execsnoop
