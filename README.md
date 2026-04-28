@@ -45,21 +45,24 @@ sleep            227607 208745 227607 1.80    signal 2 (INT)  --> CTRL + C
 curl             227660 208745 227660 0.01    0
 ```
 
-# Possíveis nomes do comando: exitsnoop; exitsnoop-bpfcc
+### Possíveis nomes do comando: 
+### 
+### exitsnoop; exitsnoop-bpfcc
+### 
 
 ### 3. threadsnoop (Traceer Threadcreatie)
 Objetivo: Rastrear chamadas para pthread_create(), fornecendo informações sobre o caminho de criação de novas threads.
 Utilização: É usado para caracterização de cargas de trabalho e como ferramenta complementar para execsnoopentender como os aplicativos implantam threads.
 Requisitos: Como o código rastreia pthread_create() a partir do diretório raiz libpthread.so.0, pode ser necessário ajustar os caminhos das bibliotecas no código-fonte de acordo com o seu sistema.
 
-# Exemplo:
+### Exemplo:
 ```bash
 $ sudo threadsnoop-bpfcc ou $ sudo /usr/share/bcc/tools/threadsnoop
 ```
 
 Programa C simples para teste que cria threads.
 
-# Crie teste_threads.c
+### Crie teste_threads.c
 ```bash
 cat > teste_threads.c << 'EOF'
 #include <pthread.h>
@@ -82,17 +85,17 @@ int main() {
 EOF
 ```
 
-# Compilando
+### Compilando
 ```bash
 gcc -o teste_threads teste_threads.c -lpthread
 ```
 
-# Executando
+### Executando
 ```bash
 ./teste_threads
 ```
 
-# Provavel resultado.
+### Provavel resultado.
 Você verá 10 linhas de threads sendo criadas pelo seu programa teste_threads.
 
 
