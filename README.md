@@ -1,4 +1,4 @@
-# Ferramentas de observabilidade para Linux.
+# Ferramentas de observabilidade, eBPF, para Linux.
 # Execsnoop, Exitsnoop e Threadsnoop.
 
 Ferramentas clássicas de observabilidade para Linux, execsnoop, exitsnoop e threadsnoop. Elas são ferramentas poderosas do BCC (BPF Compiler Collection) usadas para monitorar e depurar sistemas Linux que utilizam o eBPF (Extended Berkeley Packet Filter). Elas fornecem informações em tempo real sobre o comportamento dos processos com sobrecarga mínima.  
@@ -29,6 +29,10 @@ PCOMM            PID    PPID   RET ARGS
 curl             211447 208745   0 /usr/bin/curl http://localhost:8080
 ls               215745 208745   0 /usr/bin/ls --color=auto -l /tmp/
 ```
+### Possíveis nomes do comando: 
+### 
+### execsnoop; execsnoop-bpfcc
+### 
 
 ### 2. exitsnoop (Rastreamento do Término do Processo)
 Objetivo: Monitorar o término dos processos (finalização do processo).
