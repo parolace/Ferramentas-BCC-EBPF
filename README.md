@@ -30,7 +30,7 @@ Saída: Exibe o processo pai (PPID), o ID do processo (PID), o valor de retorno 
 
 Exemplo:  
 ```bash
-$ sudo execsnoop-bpfcc ou $ sudo /usr/share/bcc/tools/exitsnoop
+$ sudo execsnoop-bpfcc ou $ sudo /usr/share/bcc/tools/execsnoop
 
 PCOMM            PID    PPID   RET ARGS
 curl             211447 208745   0 /usr/bin/curl http://localhost:8080
