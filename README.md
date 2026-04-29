@@ -3,7 +3,7 @@
 
 Ferramentas clássicas de observabilidade para Linux, execsnoop, exitsnoop e threadsnoop. Elas são ferramentas poderosas do BCC (BPF Compiler Collection) usadas para monitorar e depurar sistemas Linux que utilizam o eBPF (Extended Berkeley Packet Filter). Elas fornecem informações em tempo real sobre o comportamento dos processos com sobrecarga mínima.  
 
-### Reqisitos:  
+### Requisitos:  
 
 ### Instale o pacote BCC/BPFCC.  
 ** Para instalar pacotes bpfcc-tools. 
