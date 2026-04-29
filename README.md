@@ -36,10 +36,8 @@ PCOMM            PID    PPID   RET ARGS
 curl             211447 208745   0 /usr/bin/curl http://localhost:8080
 ls               215745 208745   0 /usr/bin/ls --color=auto -l /tmp/
 ```
-### Possíveis nomes do comando: 
-### 
-### execsnoop; execsnoop-bpfcc
-### 
+** Possíveis nomes do comando: 
+execsnoop; execsnoop-bpfcc
 
 ### 2. exitsnoop (Rastreamento do Término do Processo)
 Objetivo: Monitorar o término dos processos (finalização do processo).  
@@ -56,12 +54,10 @@ sleep            227607 208745 227607 1.80    signal 2 (INT)  --> CTRL + C
 curl             227660 208745 227660 0.01    0
 ```
 
-### Possíveis nomes do comando: 
-### 
-### exitsnoop; exitsnoop-bpfcc
-### 
+** Possíveis nomes do comando: 
+exitsnoop; exitsnoop-bpfcc
 
-### 3. threadsnoop (Traceer Threadcreatie)
+### 3. threadsnoop
 Objetivo: Rastrear chamadas para pthread_create(), fornecendo informações sobre o caminho de criação de novas threads.  
 Utilização: É usado para caracterização de cargas de trabalho e como ferramenta complementar para execsnoop entender como os aplicativos implantam threads.  
 Requisitos: Como o código rastreia pthread_create() a partir do diretório raiz libpthread.so.0, pode ser necessário ajustar os caminhos das bibliotecas no código-fonte de acordo com o seu sistema.
