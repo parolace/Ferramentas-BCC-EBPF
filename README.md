@@ -6,10 +6,17 @@ Ferramentas clássicas de observabilidade para Linux, execsnoop, exitsnoop e thr
 ### Reqisitos:  
 
 ### Instale o pacote BCC/BPFCC.  
+** Para instalar pacotes bpfcc-tools, mas não o bcc-tools completo com os scripts Python na pasta /usr/share/bcc/tools/. 
 ```bash
 sudo apt update
 sudo apt install bpfcc-tools linux-headers-$(uname -r)
 ```
+** Instalação do pacote BCC completo:
+```bash
+sudo apt update
+sudo apt install bcc-tools linux-headers-$(uname -r)
+```
+
 Verificar se instalou. Provavelmente vai mostrar execsnoop, exitsnoop, threadsnoop e outros.    
 
 ```bash
