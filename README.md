@@ -155,3 +155,23 @@ PCOMM            PID    PPID   RET ARGS
 curl             211447 208745   0 /usr/bin/curl http://localhost:8080
 ls               215745 208745   0 /usr/bin/ls --color=auto -l /tmp/
 ```
+
+
+### 4. opensnoop
+Opensnoop é uma ferramenta BCC que rastreia todas as chamadas open() do sistema em tempo real, mostrando qual processo está tentando abrir qual arquivo. É extremamente útil para descobrir onde aplicações procuram configs, logs e arquivos de dados.
+
+Exemplo:  
+```bash
+$ sudo opensnoop-bpfcc ou $ sudo /usr/share/bcc/tools/opensnoop
+TIME     PID    COMM       FD  ERR  PATH
+823489 docker              3   0 /etc/ld.so.cache
+3615   chrome            349   0 /proc/4163/stat
+3615   chrome            349   0 /proc/4078/stat
+823499 jcmd                4   0 /home/paulo/.vscode/extensions/redhat.java-1.54.0-linux-x64/jre/21.0.10-linux-x86_64/lib/libjava.so
+823499 jcmd                4   0 /home/paulo/.vscode/extensions/redhat.java-1.54.0-linux-x64/jre/21.0.10-linux-x86
+```
+
+** Possíveis nomes do comando: 
+execsnoop; execsnoop-bpfcc
+
+
