@@ -6,7 +6,7 @@ Ferramentas clássicas de observabilidade para Linux, execsnoop, exitsnoop e thr
 ### Reqisitos:  
 
 ### Instale o pacote BCC/BPFCC.  
-** Para instalar pacotes bpfcc-tools, mas não o bcc-tools completo com os scripts Python na pasta /usr/share/bcc/tools/. 
+** Para instalar pacotes bpfcc-tools. 
 ```bash
 sudo apt update
 sudo apt install bpfcc-tools linux-headers-$(uname -r)
@@ -24,7 +24,7 @@ $ ls /usr/share/bcc/tools/ | grep snoop
 ```
 
 ### 1. execsnoop (Rastrear Execuções de Processos)  
-Objetivo: Monitorar e registrar novos processos em tempo real, execve()rastreando a chamada do sistema.  
+Objetivo: Monitorar e registrar novos processos em tempo real, execve(),  especificamente a função do kernel sys_execve(). Essa é a syscall que substitui o código atual de um processo por um novo programa, normalmente chamada logo após um fork() para criar processos filhos.  
 Utilização: É altamente adequado para identificar processos efêmeros que não são visíveis em ferramentas de monitoramento típicas, como o top e ls. Auxilia na depuração de scripts de shell, no monitoramento da inicialização de aplicativos e na identificação do uso excessivo de recursos sh/grep/sed/awk.  
 Saída: Exibe o processo pai (PPID), o ID do processo (PID), o valor de retorno e os argumentos com os quais o programa foi iniciado.
 
