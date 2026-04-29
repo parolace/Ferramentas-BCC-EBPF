@@ -35,8 +35,8 @@ ls               215745 208745   0 /usr/bin/ls --color=auto -l /tmp/
 ### 
 
 ### 2. exitsnoop (Rastreamento do Término do Processo)
-Objetivo: Monitorar o término dos processos (finalização do processo).
-Utilização: Ele rastreia a função do kernel sched_process_exit(), o que significa que pode registrar o término de processos por meio de sinais de saída ou fatais. Também pode detectar processos "zumbis"
+Objetivo: Monitorar o término dos processos (finalização do processo).  
+Utilização: Ele rastreia a função do kernel sched_process_exit(), o que significa que pode registrar o término de processos por meio de sinais de saída ou fatais. Também pode detectar processos "zumbis"  
 Funcionalidades: Funciona para todos os usuários e processos, incluindo aqueles em contêineres.
 
 Exemplo:  
@@ -55,8 +55,8 @@ curl             227660 208745 227660 0.01    0
 ### 
 
 ### 3. threadsnoop (Traceer Threadcreatie)
-Objetivo: Rastrear chamadas para pthread_create(), fornecendo informações sobre o caminho de criação de novas threads.
-Utilização: É usado para caracterização de cargas de trabalho e como ferramenta complementar para execsnoopentender como os aplicativos implantam threads.
+Objetivo: Rastrear chamadas para pthread_create(), fornecendo informações sobre o caminho de criação de novas threads.  
+Utilização: É usado para caracterização de cargas de trabalho e como ferramenta complementar para execsnoop entender como os aplicativos implantam threads.  
 Requisitos: Como o código rastreia pthread_create() a partir do diretório raiz libpthread.so.0, pode ser necessário ajustar os caminhos das bibliotecas no código-fonte de acordo com o seu sistema.
 
 ### Exemplo:
@@ -93,31 +93,62 @@ EOF
 ```bash
 gcc -o teste_threads teste_threads.c -lpthread
 ```
+Obs.:
+Em algumas distribuições, -lpthread também funciona, mas -pthread é a forma mais recomendada para compilar e linkar programas com threads POSIX.
 
-### Executando
+### Como executar com o threadsnoop
+Abra um terminal como monitor e "rode":
+```bash
+sudo python3 threadsnoop_libc.py
+```
+O threadsnoop_libc.py usa eBPF/BPF para fazer uprobes (observação de funções de usuário) no kernel. 
+
+Em outro terminal execute o programa que foi gerado, teste_threads.
 ```bash
 ./teste_threads
 ```
 
-### Provavel resultado.
+### Provável resultado.
 Você verá 10 linhas de threads sendo criadas pelo seu programa teste_threads.
+```bash
+TIME(ms)   PID     COMM             FUNC
+56300      719439  teste_threads    thread_func
+56300      719439  teste_threads    thread_func
+56300      719439  teste_threads    thread_func
+56300      719439  teste_threads    thread_func
+56300      719439  teste_threads    thread_func
+56300      719439  teste_threads    thread_func
+56300      719439  teste_threads    thread_func
+56300      719439  teste_threads    thread_func
+56300      719439  teste_threads    thread_func
+56300      719439  teste_threads    thread_func
+```
 
-
-### Importante: Como essas ferramentas usam eBPF, o acesso root (sudo) geralmente é necessário para executar execsnoop, exitsnoope .threadsnoop
+** Importante: Como essas ferramentas usam eBPF, o acesso root (sudo) geralmente é necessário para executar execsnoop, exitsnoope .threadsnoop
 
 
 ### Exemplo prático de execsnoop
 Em um terminal execute.
+```bash
+sudo execsnoop-bpfcc
+
+ou
+
 sudo execsnoop
+```
 
 Em um outro terminal execute.
-ls ou curl
+```bash
+ls
+
+ou
+
+curl www.ufes.br
+```
 
 O execsnoop vai imprimir:
-
+```bash
 PCOMM            PID    PPID   RET ARGS
 curl             211447 208745   0 /usr/bin/curl http://localhost:8080
 ls               215745 208745   0 /usr/bin/ls --color=auto -l /tmp/
-
-
-
+```
