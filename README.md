@@ -25,7 +25,10 @@ sudo apt install bpfcc-tools linux-headers-$(uname -r)
 sudo apt update
 sudo apt install bcc-tools linux-headers-$(uname -r)
 ```
-
+** Instalação do módulo Python do BCC:
+```bash
+sudo apt install python3-bpfcc
+```
 Verificar se instalou. Provavelmente vai mostrar execsnoop, exitsnoop, threadsnoop e outros.    
 
 ```bash
